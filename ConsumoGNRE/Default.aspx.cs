@@ -9,6 +9,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
 using System.Xml.Linq;
+using ConsumoGNRE.Proxy;
+
+
 
 namespace ConsumoGNRE
 {
@@ -24,16 +27,18 @@ namespace ConsumoGNRE
             //Literal1.Text = enviarRequisicao();
 
             //Instanciando web service
-            //ServiceReference1.GnreConfigUFSoapClient ws = new ServiceReference1.GnreConfigUFSoapClient();
-            ServiceReference3.GnreConfigUFSoapClient ws = new ServiceReference3.GnreConfigUFSoapClient();
+            //ServiceReference3.GnreConfigUFSoapClient ws = new ServiceReference3.GnreConfigUFSoapClient();
+            Proxy.Proxy.GnreConfigUF ws = new Proxy.Proxy.GnreConfigUF();
 
-            X509Certificate2 cert = new X509Certificate2(@"C:\Certs\certBase251.pfx", "1234");
-            ws.ClientCredentials.ClientCertificate.Certificate = cert;
+            X509Certificate2 cert = new X509Certificate2(@"e:\certificados\95386827000191_20191009091349.pfx", "1234");
+            //ws.ClientCredentials.ClientCertificate.Certificate = cert;
+            ws.ClientCertificates.Add(cert);
 
             // HEAD //
-            //ServiceReference1.gnreCabecMsg head = new ServiceReference1.gnreCabecMsg();
-            ServiceReference3.gnreCabecMsg head = new ServiceReference3.gnreCabecMsg();
+            //ServiceReference3.gnreCabecMsg head = new ServiceReference3.gnreCabecMsg();
+            Proxy.Proxy.gnreCabecMsg head = new Proxy.Proxy.gnreCabecMsg();
             head.versaoDados = "1.00";
+            ws.gnreCabecMsgValue = head;
             // HEAD //
 
 
@@ -45,16 +50,13 @@ namespace ConsumoGNRE
 
             XmlNode dados = xDoc;
             // BODY 
-            
+
             // Fazendo a chamada
-            XmlNode result = ws.consultar(head, dados);
+            //XmlNode result = ws.consultar(head, dados);
+            XmlNode result = ws.consultar(dados);
 
             XDocument resultXDoc = XDocument.Parse(result.OuterXml);
-            //XmlDocument resultXmlDoc = new XmlDocument();
-            //resultXmlDoc.Load(resultXDoc.CreateReader());
-
-            //resultXDoc.Save(@"C:\A_xml_GNRE\return.xml");
-
+            
             Literal1.Text = DateTime.Now.ToString("h:mm:ss") + "           ::           " + resultXDoc.ToString();
 
             Console.WriteLine("Fim");
