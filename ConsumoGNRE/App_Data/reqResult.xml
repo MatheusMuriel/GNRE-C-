@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ns1:TConfigUf xmlns="http://www.gnre.pe.gov.br" xmlns:ns1="http://www.gnre.pe.gov.br">
+  <ns1:ambiente>2</ns1:ambiente>
+  <ns1:uf>AC</ns1:uf>
+  <ns1:situacaoConsulta>
+    <ns1:codigo>198</ns1:codigo>
+    <ns1:descricao>Este serviço deve usar uma conexão HTTPS Segura! Tente novamente utilizando seu Certificado Digital.</ns1:descricao>
+  </ns1:situacaoConsulta>
+</ns1:TConfigUf>
